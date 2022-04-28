@@ -32,6 +32,7 @@ import userStoreInjectable from "../../../common/user-store/user-store.injectabl
 import pageFiltersStoreInjectable from "./page-filters/store.injectable";
 import type { OpenConfirmDialog } from "../confirm-dialog/open.injectable";
 import openConfirmDialogInjectable from "../confirm-dialog/open.injectable";
+import trackWithIdInjectable from "../../../renderer/telemetry/track-with-id.injectable";
 
 export interface ItemListLayoutContentProps<Item extends ItemObject, PreLoadStores extends boolean> {
   getFilters: () => Filter[];
@@ -73,6 +74,7 @@ interface Dependencies {
   userStore: UserStore;
   pageFiltersStore: PageFiltersStore;
   openConfirmDialog: OpenConfirmDialog;
+  capture: (id: string, action: string) => void;
 }
 
 @observer
@@ -108,7 +110,11 @@ class NonInjectedItemListLayoutContent<
         searchItem={item}
         sortItem={item}
         selected={detailsItem && detailsItem.getId() === item.getId()}
-        onClick={hasDetailsView ? prevDefault(() => onDetails?.(item)) : undefined}
+        onClick={hasDetailsView ? prevDefault(() => {
+          this.props.capture(this.props.tableId, "Table Row Click");
+
+          return onDetails?.(item);
+        }) : undefined}
         {...customizeTableRowProps(item)}
       >
         {isSelectable && (
@@ -378,5 +384,6 @@ export const ItemListLayoutContent = withInjectables<Dependencies, ItemListLayou
     userStore: di.inject(userStoreInjectable),
     pageFiltersStore: di.inject(pageFiltersStoreInjectable),
     openConfirmDialog: di.inject(openConfirmDialogInjectable),
+    capture: di.inject(trackWithIdInjectable),
   }),
 }) as <Item extends ItemObject, PreLoadStores extends boolean>(props: ItemListLayoutContentProps<Item, PreLoadStores>) => React.ReactElement;
