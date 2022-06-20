@@ -69,6 +69,7 @@ import kubeObjectDetailsClusterFrameChildComponentInjectable from "./components/
 import kubeconfigDialogClusterFrameChildComponentInjectable from "./components/kubeconfig-dialog/kubeconfig-dialog-cluster-frame-child-component.injectable";
 import portForwardDialogClusterFrameChildComponentInjectable from "./port-forward/port-forward-dialog-cluster-frame-child-component.injectable";
 import setupSystemCaInjectable from "./frames/root-frame/setup-system-ca.injectable";
+import clusterFrameParentElementInjectable from "./components/cluster-manager/parent-element.injectable";
 
 export const getDiForUnitTesting = (opts: { doGeneralOverrides?: boolean } = {}) => {
   const {
@@ -100,6 +101,7 @@ export const getDiForUnitTesting = (opts: { doGeneralOverrides?: boolean } = {})
 
     di.override(terminalSpawningPoolInjectable, () => document.createElement("div"));
     di.override(hostedClusterIdInjectable, () => undefined);
+    di.override(clusterFrameParentElementInjectable, () => document.createElement("div"));
 
     di.override(getAbsolutePathInjectable, () => getAbsolutePathFake);
     di.override(joinPathsInjectable, () => joinPathsFake);
