@@ -20,6 +20,7 @@ import type { FakeExtensionData } from "../../renderer/components/test-utils/get
 import { getRendererExtensionFakeFor } from "../../renderer/components/test-utils/get-renderer-extension-fake";
 import hostedClusterIdInjectable from "../../renderer/cluster-frame-context/hosted-cluster-id.injectable";
 import { advanceFakeTime, useFakeTime } from "../../common/test-utils/use-fake-time";
+import appEventBusInjectable from "../../common/app-event-bus/app-event-bus.injectable";
 
 // TODO: Make tooltips free of side effects by making it deterministic
 jest.mock("../../renderer/components/tooltip/withTooltip", () => ({
@@ -42,6 +43,7 @@ describe("cluster - sidebar and tab navigation for extensions", () => {
     applicationBuilder.beforeApplicationStart(({ rendererDi }) => {
       rendererDi.override(hostedClusterIdInjectable, () => "some-hosted-cluster-id");
 
+      rendererDi.permitSideEffects(appEventBusInjectable);
       rendererDi.override(
         directoryForLensLocalStorageInjectable,
         () => "/some-directory-for-lens-local-storage",

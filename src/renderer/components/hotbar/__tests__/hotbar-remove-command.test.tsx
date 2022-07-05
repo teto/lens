@@ -19,6 +19,7 @@ import getConfigurationFileModelInjectable from "../../../../common/get-configur
 import appVersionInjectable from "../../../../common/get-configuration-file-model/app-version/app-version.injectable";
 import type { HotbarStore } from "../../../../common/hotbars/store";
 import storesAndApisCanBeCreatedInjectable from "../../../stores-apis-can-be-created.injectable";
+import appEventBusInjectable from "../../../../common/app-event-bus/app-event-bus.injectable";
 
 const mockHotbars: Partial<Record<string, any>> = {
   "1": {
@@ -50,6 +51,7 @@ describe("<HotbarRemoveCommand />", () => {
     di.permitSideEffects(hotbarStoreInjectable);
     di.permitSideEffects(getConfigurationFileModelInjectable);
     di.permitSideEffects(appVersionInjectable);
+    di.permitSideEffects(appEventBusInjectable);
 
     render = renderFor(di);
   });
