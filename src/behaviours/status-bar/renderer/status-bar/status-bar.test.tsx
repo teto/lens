@@ -10,11 +10,11 @@ import { computed, observable } from "mobx";
 import type { DiContainer } from "@ogre-tools/injectable";
 import type { StatusBarItems } from "./status-bar-items.injectable";
 import statusBarItemsInjectable from "./status-bar-items.injectable";
-import { LensRendererExtension } from "../../../extensions/lens-renderer-extension";
-import directoryForUserDataInjectable from "../../../common/app-paths/directory-for-user-data/directory-for-user-data.injectable";
-import type { ApplicationBuilder } from "../test-utils/get-application-builder";
-import { getApplicationBuilder } from "../test-utils/get-application-builder";
-import getRandomIdInjectable from "../../../common/utils/get-random-id.injectable";
+import { LensRendererExtension } from "../../../../extensions/lens-renderer-extension";
+import directoryForUserDataInjectable from "../../../../common/app-paths/directory-for-user-data/directory-for-user-data.injectable";
+import type { ApplicationBuilder } from "../../../../renderer/components/test-utils/get-application-builder";
+import { getApplicationBuilder } from "../../../../renderer/components/test-utils/get-application-builder";
+import getRandomIdInjectable from "../../../../common/utils/get-random-id.injectable";
 
 class SomeTestExtension extends LensRendererExtension {
   constructor(statusBarItems: IObservableArray<any>) {
@@ -48,7 +48,7 @@ describe("<StatusBar />", () => {
     });
 
     applicationBuilder.extensions.renderer.enable(new SomeTestExtension(statusBarItems));
-    
+
     di = applicationBuilder.dis.rendererDi;
 
     di.override(directoryForUserDataInjectable, () => "some-directory-for-user-data");

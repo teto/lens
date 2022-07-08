@@ -5,15 +5,15 @@
 import type { Injectable } from "@ogre-tools/injectable";
 import { getInjectable } from "@ogre-tools/injectable";
 import { computed } from "mobx";
-import { extensionRegistratorInjectionToken } from "../../../extensions/extension-loader/extension-registrator-injection-token";
-import type { LensRendererExtension } from "../../../extensions/lens-renderer-extension";
+import { extensionRegistratorInjectionToken } from "../../../../extensions/extension-loader/extension-registrator-injection-token";
+import type { LensRendererExtension } from "../../../../extensions/lens-renderer-extension";
 import type { StatusBarItem } from "./status-bar-item-injection-token";
 import { statusBarItemInjectionToken } from "./status-bar-item-injection-token";
 import type { StatusBarRegistration } from "./status-bar-registration";
 import React from "react";
-import getRandomIdInjectable from "../../../common/utils/get-random-id.injectable";
-import loggerInjectable from "../../../common/logger.injectable";
-import type { Logger } from "../../../common/logger";
+import getRandomIdInjectable from "../../../../common/utils/get-random-id.injectable";
+import loggerInjectable from "../../../../common/logger.injectable";
+import type { Logger } from "../../../../common/logger";
 
 const statusBarItemRegistratorInjectable = getInjectable({
   id: "status-bar-item-registrator",
